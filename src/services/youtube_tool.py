@@ -25,10 +25,6 @@ def get_youtube_data(topic="asmr"):
         publishedAfter=formatted_date
     ).execute()
     
-
-    with open(r'C:\Users\stael\Projects\scout_agent\data\example_output.json', 'w') as file:
-            json.dump(video_response, file, indent=1)
-
     video_ids = [item["id"]["videoId"] for item in video_response["items"]]
 
 
@@ -36,11 +32,7 @@ def get_youtube_data(topic="asmr"):
          part="snippet,statistics",
          id=','.join(video_ids)
     ).execute()
-
-    with open(r'C:\Users\stael\Projects\scout_agent\data\id_output.json', 'w') as file:
-            json.dump(list_response, file, indent=1)
     
-
     videos = []
     for video in list_response["items"]:
           date_published = datetime.fromisoformat(video["snippet"]["publishedAt"])
