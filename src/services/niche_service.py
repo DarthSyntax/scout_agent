@@ -24,7 +24,7 @@ class NicheService:
                 {"role": "system", "content": sys_message},
                 {"role": "user", "content": "Give me 5 niche topic suggestions for AI Agents"},
                 {"role": "assistant", "content": assist_one_shot},
-                {"role": "user", "content": f"Give me 3 niche topic suggestions for {query}"},
+                {"role": "user", "content": f"Give me 5 niche topic suggestions for {query}"},
                 {"role": "assistant", "content": ''}
             ]
         )
@@ -40,5 +40,14 @@ class NicheService:
         results = []
 
         for niche in niches:
-            videos = youtube_tool.get_youtube_data(query)
-            normalized = normalizer.normalize_data(query)
+            videos = youtube_tool(query, 15)
+            normalized = normalizer(videos)
+
+            results.append({
+                "niche": niche,
+                "total_results": normalized["total_results"],
+                "avg_views_per_day": normalized["avg_views_per_day"],
+                "avg_engagement_rate": normalized["avg_engagement_rate"]
+            })
+        
+        return results
