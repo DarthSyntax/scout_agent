@@ -49,5 +49,6 @@ class NicheService:
                 "avg_views_per_day": normalized["avg_views_per_day"],
                 "avg_engagement_rate": normalized["avg_engagement_rate"]
             })
+            results.sort(key=lambda x: x["total_results"])
         
         return results
