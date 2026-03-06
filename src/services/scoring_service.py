@@ -10,12 +10,13 @@ class ScoringService:
         return round((view_score * 0.7) + (engagement_score * 0.3), 2)
 
     def calc_competition_score(_self, normalized_data):
+        # total results is not a good metric for youtube because searches for niches have nearly the same result
         results_score = _self._score_total_results(normalized_data["total_results"])
 
         return round(results_score, 2)
     
     def calc_opportunity_score(_self, trend_score, competition_score):
-        return round((trend_score * 0.7) + (10 - competition_score)*0.3, 2)
+        return round((trend_score) / (competition_score), 2)
     
     def _score_view_count(self, avg_views_per_day):
         if avg_views_per_day >= 5000000:

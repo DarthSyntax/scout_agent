@@ -10,6 +10,7 @@ def normalize_data(videos: list):
         likes = int(video["like_count"])
         comments = int(video["comment_count"])
         days = video["days_since_upload"]
+        subscribers = int(video["channel_subscribers"])
 
         if days > 0:
             views_per_day = (views/days)
