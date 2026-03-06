@@ -4,13 +4,21 @@ import statistics
 def normalize_data(videos: list):
     engagement_rates_list = []
     views_per_day_list = []
+    subscribers_list = []
+    channel_set = set()
+
 
     for video in videos:
         views = int(video["view_count"])
         likes = int(video["like_count"])
         comments = int(video["comment_count"])
         days = video["days_since_upload"]
-        subscribers = int(video["channel_subscribers"])
+        channel = video["channel_title"]
+
+        if channel not in channel_set:
+            channel_set.add(channel)
+            subscribers_list.append(int(video["channel_subscribers"]))
+            print({channel: int(video["channel_subscribers"])})
 
         if days > 0:
             views_per_day = (views/days)
@@ -33,5 +41,6 @@ def normalize_data(videos: list):
         "median_views_per_day": statistics.median(views_per_day_list),
         "avg_views_per_day": statistics.mean(views_per_day_list),
         "median_engagement_rate": statistics.median(engagement_rates_list),
-        "avg_engagement_rate": statistics.mean(engagement_rates_list)
+        "avg_engagement_rate": statistics.mean(engagement_rates_list),
+        "median_channel_subscribers": statistics.median(subscribers_list)
     }

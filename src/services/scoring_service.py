@@ -11,6 +11,7 @@ class ScoringService:
 
     def calc_competition_score(_self, normalized_data):
         # total results is not a good metric for youtube because searches for niches have nearly the same result
+        # maybe make it median subscribers?
         results_score = _self._score_total_results(normalized_data["total_results"])
 
         return round(results_score, 2)

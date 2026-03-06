@@ -76,6 +76,8 @@ def get_youtube_data(topic="asmr", max_results = 25):
                 "channel_total_videos": current_channel["channel_total_videos"],
                 "total_results": video_response["pageInfo"]["totalResults"]         
             })
+          # print({video["snippet"]["channelTitle"] : current_channel["channel_subscribers"]})
+    
             
     return videos     
         
