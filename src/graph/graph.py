@@ -3,6 +3,7 @@ from src.graph.state import State
 from src.nodes.youtube_node import youtube_node
 from src.nodes.normalizer_node import normalize_data
 
+# might have scoring here as a node and do normalize_node -> scoring_node -> route_node -> niche_node -> scoring_node
 
 workflow = StateGraph(State)
 
@@ -12,6 +13,6 @@ workflow.add_node("norm", normalize_data)
 
 workflow.add_edge(START, 'yt')
 workflow.add_edge('yt', "norm")
-workflow.add_edge("norm")
+workflow.add_edge("norm", END)
 
 workflow.compile()

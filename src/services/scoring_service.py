@@ -1,7 +1,5 @@
 
 class ScoringService:
-    # view weight is 0.7
-    # engagement weight is 0.3
 
     def calc_trend_score(_self, normalized_data):
         view_score = _self._score_view_count(normalized_data["avg_views_per_day"])

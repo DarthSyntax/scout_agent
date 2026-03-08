@@ -1,4 +1,3 @@
-from src.graph.state import State
 import statistics
 
 def normalize_data(videos: list):
@@ -7,6 +6,13 @@ def normalize_data(videos: list):
     subscribers_list = []
     channel_set = set()
 
+    total_results = 0 
+    num_videos = 0 
+    median_views_per_day = 0
+    avg_views_per_day = 0
+    median_engagement_rate = 0
+    avg_engagement_rate = 0
+    median_channel_subscribers = 0
 
     for video in videos:
         views = int(video["view_count"])
@@ -18,7 +24,6 @@ def normalize_data(videos: list):
         if channel not in channel_set:
             channel_set.add(channel)
             subscribers_list.append(int(video["channel_subscribers"]))
-            # print({channel: int(video["channel_subscribers"])})
 
         if days > 0:
             views_per_day = (views/days)
@@ -35,23 +40,27 @@ def normalize_data(videos: list):
         views_per_day_list.append(views_per_day)
     
     
-    if not videos:
-        return {
-        "total_results": 0,
-        "num_videos": len(videos),
-        "median_views_per_day": 0,
-        "avg_views_per_day": 0,
-        "median_engagement_rate": 0,
-        "avg_engagement_rate": 0,
-        "median_channel_subscribers": 0
-    }
+    if videos:
+        # not sure if I should score here or leave it separate and let a node handle that for the graph
+
+        total_results = videos[0]["total_results"]
+        num_videos = len(videos)
+        median_views_per_day = statistics.median(views_per_day_list)
+        avg_views_per_day = statistics.mean(views_per_day_list)
+        median_engagement_rate = statistics.median(engagement_rates_list)
+        avg_engagement_rate = statistics.mean(engagement_rates_list)
+        median_channel_subscribers = statistics.median(subscribers_list)
+        creator_saturation = statistics.median(subscribers_list)/statistics.mean(views_per_day_list)
+
+    
     
     return {
-        "total_results": videos[0]["total_results"],
-        "num_videos": len(videos),
-        "median_views_per_day": statistics.median(views_per_day_list),
-        "avg_views_per_day": statistics.mean(views_per_day_list),
-        "median_engagement_rate": statistics.median(engagement_rates_list),
-        "avg_engagement_rate": statistics.mean(engagement_rates_list),
-        "median_channel_subscribers": statistics.median(subscribers_list)
+        "total_results": total_results,
+        "num_videos": num_videos,
+        "median_views_per_day": median_views_per_day,
+        "avg_views_per_day": avg_views_per_day,
+        "median_engagement_rate": median_engagement_rate,
+        "avg_engagement_rate": avg_engagement_rate,
+        "median_channel_subscribers": median_channel_subscribers,
+        "creator_saturation": creator_saturation,
     }

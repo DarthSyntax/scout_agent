@@ -57,7 +57,8 @@ class NicheService:
                 "median_channel_subscribers": normalized["median_channel_subscribers"],
                 "trend_score": trend_score,
                 "competition_score": competition_score,
-                "opportunity_score": opportunity_score
+                "opportunity_score": opportunity_score,
+                "creator_saturation": normalized["creator_saturation"]
 
             })
             results.sort(key=lambda x: x["opportunity_score"], reverse=True)
