@@ -60,6 +60,6 @@ class NicheService:
                 "opportunity_score": opportunity_score
 
             })
-            results.sort(key=lambda x: x["opportunity_score"])
+            results.sort(key=lambda x: x["opportunity_score"], reverse=True)
         
         return results
