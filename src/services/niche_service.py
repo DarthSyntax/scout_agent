@@ -1,6 +1,7 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+from src.services.scoring_service import ScoringService
 
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
@@ -24,7 +25,7 @@ class NicheService:
                 {"role": "system", "content": sys_message},
                 {"role": "user", "content": "Give me 5 niche topic suggestions for AI Agents"},
                 {"role": "assistant", "content": assist_one_shot},
-                {"role": "user", "content": f"Give me 5 niche topic suggestions for {query}"},
+                {"role": "user", "content": f"Give me 3 niche topic suggestions for {query}"},
                 {"role": "assistant", "content": ''}
             ]
         )
@@ -38,17 +39,27 @@ class NicheService:
         niches = self.find_niches(query)
 
         results = []
+        scoring = ScoringService()
 
         for niche in niches:
-            videos = youtube_tool(query, 15)
+            print(f"Searching niche: {niche}")
+            videos = youtube_tool(niche, 15)
             normalized = normalizer(videos)
+            trend_score = scoring.calc_trend_score(normalized)
+            competition_score = scoring.calc_competition_score(normalized)
+            opportunity_score = scoring.calc_opportunity_score(trend_score, competition_score)
 
             results.append({
                 "niche": niche,
                 "total_results": normalized["total_results"],
                 "avg_views_per_day": normalized["avg_views_per_day"],
-                "avg_engagement_rate": normalized["avg_engagement_rate"]
+                "avg_engagement_rate": normalized["avg_engagement_rate"],
+                "median_channel_subscribers": normalized["median_channel_subscribers"],
+                "trend_score": trend_score,
+                "competition_score": competition_score,
+                "opportunity_score": opportunity_score
+
             })
-            results.sort(key=lambda x: x["total_results"])
+            results.sort(key=lambda x: x["opportunity_score"])
         
         return results

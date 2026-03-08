@@ -18,7 +18,7 @@ def normalize_data(videos: list):
         if channel not in channel_set:
             channel_set.add(channel)
             subscribers_list.append(int(video["channel_subscribers"]))
-            print({channel: int(video["channel_subscribers"])})
+            # print({channel: int(video["channel_subscribers"])})
 
         if days > 0:
             views_per_day = (views/days)
@@ -33,7 +33,18 @@ def normalize_data(videos: list):
 
         engagement_rates_list.append(engagement)
         views_per_day_list.append(views_per_day)
-        
+    
+    
+    if not videos:
+        return {
+        "total_results": 0,
+        "num_videos": len(videos),
+        "median_views_per_day": 0,
+        "avg_views_per_day": 0,
+        "median_engagement_rate": 0,
+        "avg_engagement_rate": 0,
+        "median_channel_subscribers": 0
+    }
     
     return {
         "total_results": videos[0]["total_results"],

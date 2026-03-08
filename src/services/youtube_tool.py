@@ -35,7 +35,7 @@ def get_youtube_data(topic="asmr", max_results = 25):
     ).execute()
     
     channels_dict = {}
-    for item in channel_response["items"]:
+    for item in channel_response.get("items", []):
          c_id = item["id"]
          channels_dict.update({
               c_id : {

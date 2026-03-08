@@ -12,12 +12,13 @@ class ScoringService:
     def calc_competition_score(_self, normalized_data):
         # total results is not a good metric for youtube because searches for niches have nearly the same result
         # maybe make it median subscribers?
-        results_score = _self._score_total_results(normalized_data["total_results"])
+        results_score = _self._score_median_subscribers(normalized_data["median_channel_subscribers"])
 
         return round(results_score, 2)
     
     def calc_opportunity_score(_self, trend_score, competition_score):
-        return round((trend_score) / (competition_score), 2)
+
+        return round(trend_score / competition_score, 2)
     
     def _score_view_count(self, avg_views_per_day):
         if avg_views_per_day >= 5000000:
@@ -31,7 +32,7 @@ class ScoringService:
         elif avg_views_per_day >= 50000:
             return 2
         else:
-            return 0
+            return 1
         
             
     
@@ -48,7 +49,7 @@ class ScoringService:
         elif avg_engagement_rate > 0.02:
             return 2
         else:
-            return 0
+            return 1
         
     def _score_total_results(self, total_results):
         if total_results > 500000:
@@ -60,4 +61,19 @@ class ScoringService:
         elif total_results > 10000:
             return 4
         else:
+            return 1
+        
+    def _score_median_subscribers(self, median_subscribers):
+        if median_subscribers > 1000000:
+            return 10
+        elif median_subscribers > 500000:
+            return 8
+        elif median_subscribers > 100000:
+            return 6
+        elif median_subscribers > 50000:
+            return 4
+        elif median_subscribers > 10000:
             return 2
+        else:
+            return 1
+
