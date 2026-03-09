@@ -30,7 +30,7 @@ class NicheService:
             ]
         )
         list_results = (response.choices[0].message.content).split(',')
-        # print(list_results)
+        
         return list_results
         
 

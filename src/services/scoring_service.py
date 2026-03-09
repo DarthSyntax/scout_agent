@@ -1,3 +1,4 @@
+import math
 
 class ScoringService:
 
@@ -5,7 +6,8 @@ class ScoringService:
         view_score = _self._score_view_count(normalized_data["avg_views_per_day"])
         engagement_score = _self._score_engagement_rate(normalized_data["avg_engagement_rate"])
         
-        return round((view_score * 0.7) + (engagement_score * 0.3), 2)
+        return round( math.log10(view_score + 1) * 0.7 +
+            (engagement_score * 10) * 0.3, 2)
 
     def calc_competition_score(_self, normalized_data):
         # total results is not a good metric for youtube because searches for niches have nearly the same result

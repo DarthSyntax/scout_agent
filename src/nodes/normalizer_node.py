@@ -41,7 +41,6 @@ def normalize_data(videos: list):
     
     
     if videos:
-        # not sure if I should score here or leave it separate and let a node handle that for the graph
 
         total_results = videos[0]["total_results"]
         num_videos = len(videos)
@@ -52,8 +51,6 @@ def normalize_data(videos: list):
         median_channel_subscribers = statistics.median(subscribers_list)
         creator_saturation = statistics.median(subscribers_list)/statistics.mean(views_per_day_list)
 
-    
-    
     return {
         "total_results": total_results,
         "num_videos": num_videos,

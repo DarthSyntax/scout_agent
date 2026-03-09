@@ -1,18 +1,18 @@
-from langgraph import StateGraph, START, END
+from langgraph.graph import StateGraph, START, END
 from src.graph.state import State
 from src.nodes.youtube_node import youtube_node
-from src.nodes.normalizer_node import normalize_data
-
-# might have scoring here as a node and do normalize_node -> scoring_node -> route_node -> niche_node -> scoring_node
+from src.nodes.analyzer_node import analyzer_node
+from src.nodes.niche_node import niche_node
 
 workflow = StateGraph(State)
 
 workflow.add_node("yt", youtube_node)
-workflow.add_node("norm", normalize_data)
+workflow.add_node("analyze", analyzer_node)
+workflow.add_node("niche", niche_node)
 
+workflow.add_edge(START, "yt")
+workflow.add_edge("yt", "analyze")
+workflow.add_edge("analyze", "niche")
+workflow.add_edge("niche", END)
 
-workflow.add_edge(START, 'yt')
-workflow.add_edge('yt', "norm")
-workflow.add_edge("norm", END)
-
-workflow.compile()
+compiled_workflow = workflow.compile()
