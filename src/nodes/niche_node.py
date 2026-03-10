@@ -10,7 +10,6 @@ def niche_node(state: State):
     niches = niche_service.find_niches(query)
     niche_results = niche_service.evaluate_niches(query=query, youtube_tool=get_youtube_data, normalizer=normalize_data)
 
-    print(niche_results)
     return {
         "niches": niches,
         "niche_results": niche_results

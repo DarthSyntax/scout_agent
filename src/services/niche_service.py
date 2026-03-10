@@ -9,6 +9,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 class NicheService:
 
     def find_niches(self, query: str):
+        print("Finding Niches")
         client = OpenAI(api_key=api_key)
 
         sys_message = '''You are a helpful chatbot who is to give suggestions for niche subtopics about a 
@@ -42,7 +43,7 @@ class NicheService:
         scoring = ScoringService()
 
         for niche in niches:
-            print(f"Searching niche: {niche}")
+            print(f"Analyzing Niche: {niche}")
             videos = youtube_tool(niche, 15)
             normalized = normalizer(videos)
             trend_score = scoring.calc_trend_score(normalized)

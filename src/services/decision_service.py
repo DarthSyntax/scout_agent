@@ -1,8 +1,8 @@
 
 class DecisionService: 
 
-    def recommend(_self, trend_score, competition_score, opportunity_score):
-        if opportunity_score > 7:
+    def decide(_self, trend_score, competition_score, opportunity_score):
+        if opportunity_score > 4:
             return "CREATE_CONTENT"
         
         if competition_score >=8:
@@ -10,7 +10,7 @@ class DecisionService:
             #competition and more opportunity
             return "FIND_NICHE"
 
-        if trend_score < 4:
-            return "RETRY" 
+        # if trend_score < 4:
+        #     return "RETRY" 
         
         return "AVOID_TOPIC"

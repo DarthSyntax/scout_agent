@@ -13,6 +13,7 @@ def normalize_data(videos: list):
     median_engagement_rate = 0
     avg_engagement_rate = 0
     median_channel_subscribers = 0
+    creator_saturation = 0
 
     for video in videos:
         views = int(video["view_count"])
@@ -53,7 +54,6 @@ def normalize_data(videos: list):
 
     return {
         "total_results": total_results,
-        "num_videos": num_videos,
         "median_views_per_day": median_views_per_day,
         "avg_views_per_day": avg_views_per_day,
         "median_engagement_rate": median_engagement_rate,

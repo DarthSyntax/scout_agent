@@ -5,3 +5,4 @@ class State(TypedDict):
     analyzed_data: dict
     niches: List[str]
     niche_results: List[dict]
+    recommendation: dict

@@ -3,6 +3,7 @@ from src.nodes.normalizer_node import normalize_data
 from src.services.scoring_service import ScoringService
 
 def analyzer_node(state: State):
+    print("Analyzing Query")
     yt_data = state["yt_data"]
     scoring_service = ScoringService()
     normalized_data = normalize_data(yt_data)
@@ -17,8 +18,7 @@ def analyzer_node(state: State):
         "opportunity_score": opportunity_score,
     }
 
-    analyzed_data = normalized_data | scored_data
-    print(analyzed_data)
+    analyzed_data = {"query": state["query"]} | normalized_data | scored_data
     return {
         "analyzed_data": analyzed_data
     }
