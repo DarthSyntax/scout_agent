@@ -9,7 +9,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 class NicheService:
 
     def find_niches(self, query: str):
-        print("Finding Niches")
+        
         client = OpenAI(api_key=api_key)
 
         sys_message = '''You are a helpful chatbot who is to give suggestions for niche subtopics about a 
@@ -31,6 +31,7 @@ class NicheService:
             ]
         )
         list_results = (response.choices[0].message.content).split(',')
+        print("Finding Niches")
         
         return list_results
         
@@ -52,6 +53,7 @@ class NicheService:
 
             results.append({
                 "niche": niche,
+                "num_videos_analyzed": normalized["num_videos_analyzed"],
                 "total_results": normalized["total_results"],
                 "avg_views_per_day": normalized["avg_views_per_day"],
                 "avg_engagement_rate": normalized["avg_engagement_rate"],

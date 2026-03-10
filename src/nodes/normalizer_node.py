@@ -54,6 +54,7 @@ def normalize_data(videos: list):
 
     return {
         "total_results": total_results,
+        "num_videos_analyzed": num_videos,
         "median_views_per_day": median_views_per_day,
         "avg_views_per_day": avg_views_per_day,
         "median_engagement_rate": median_engagement_rate,

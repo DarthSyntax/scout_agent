@@ -10,8 +10,6 @@ class ScoringService:
             (engagement_score * 10) * 0.3, 2)
 
     def calc_competition_score(_self, normalized_data):
-        # total results is not a good metric for youtube because searches for niches have nearly the same result
-        # maybe make it median subscribers?
         results_score = _self._score_median_subscribers(normalized_data["median_channel_subscribers"])
 
         return round(results_score, 2)
